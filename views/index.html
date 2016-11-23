@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mongoose</title>
+  <link rel="stylesheet" href="../css/semantic.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/components/icon.min.css">
+</head>
+<body ng-app="AppPersonajes" ng-controller="mainCtrl">
+<br>
+
+  <div class="container" ng-controller="UpdateCtrl">
+    <div class="row">
+        <div class="ui container" ng-controller="FindCtrl">
+          <button class="button teal button-l" ng-click="setAgregar()"><i class="add circle icon"></i> Nueva Película</button>
+          <table class="ui table striped selectable black">
+            <thead class="teal inverted">
+              <tr>
+                <td>Nombre</td>
+                <td>Autor</td>
+                <td>Género</td>
+                <td>Año</td>
+                <td>Acción</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="pelicula in personajes" ng-click="actualizarPelicula(pelicula)">
+                <td>{{pelicula.nombre}}</td>
+                <td>{{pelicula.autor}}</td>
+                <td>{{pelicula.genero}}</td>
+                <td>{{pelicula.anho}}</td>
+                <td>
+                  <button type="button" ng-click="actualizar(pelicula)" class="button black button-xs"><i class="write icon"></i> Editar</button> - 
+                  <button ng-click="deletedPelicula(pelicula.nombre)" type="button" class="button red button-xs"><i class="remove circle icon"></i> Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+    </div>
+    <br>
+    <div class="row" ng-if="agregar">
+      <div class="ui container" style="width:70%;">
+        <form ng-controller="InsertCtrl" class="ui form segment">
+          <h1>Ingreso de nuevas Películas: </h1><hr>
+          <div class="ui grid">
+            <div class="two wide column"></div>
+            <div class="two wide column"><label for="" class="ui large label">Nombre : </label> </div>
+            <div class="ten wide column">
+              <input class="field" type="text" required placeholder="Ingrese Nombre Película" ng-model="nombre">
+            </div>
+          </div>
+          <div class="ui grid">
+            <div class="two wide column"></div>
+            <div class="two wide column"><label for="" class="ui large label">Autor : </label> </div>
+            <div class="ten wide column">
+              <input class="field" type="text" required placeholder="Ingrese Nombre Autor" ng-model="autor">
+            </div>
+          </div>
+          
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="two wide column"><label for="" class="ui large label">Género : </label> </div>
+              <div class="ten wide column">
+                <input class="field" type="text" required placeholder="Ingrese Tipo Género" ng-model="genero">
+              </div>
+            </div>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="two wide column"><label for="" class="ui large label">Año : </label> </div>
+              <div class="ten wide column">
+                <input class="field" type="text" required placeholder="Ingrese Año Película" ng-model="anho">
+              </div>
+            </div>
+            <div class="ui grid">
+              <div class="twelve wide column"></div>
+              <div class="two wide column"><button type="button" ng-click="agregarPelicula()" class="button teal" >Agregar</button>
+            </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+    <div class="row" ng-if="upda">
+      <div class="ui container" style="width:70%;">
+        <form class="ui form segment">
+          <h1>Actualización de Películas: </h1><hr>
+          <div class="ui grid">
+            <div class="two wide column"></div>
+            <div class="two wide column"><label for="" class="ui large label">Nombre : </label> </div>
+            <div class="ten wide column">
+              <input class="field" type="text" disabled placeholder="Ingrese Nombre Película" ng-model="nombre_ac">
+            </div>
+          </div>
+          <div class="ui grid">
+            <div class="two wide column"></div>
+            <div class="two wide column"><label for="" class="ui large label">Autor : </label> </div>
+            <div class="ten wide column">
+              <input class="field" type="text" required placeholder="Ingrese Nombre Autor" ng-model="autor_ac">
+            </div>
+          </div>
+          
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="two wide column"><label for="" class="ui large label">Género : </label> </div>
+              <div class="ten wide column">
+                <input class="field" type="text" required placeholder="Ingrese Tipo Género" ng-model="genero_ac">
+              </div>
+            </div>
+            <div class="ui grid">
+              <div class="two wide column"></div>
+              <div class="two wide column"><label for="" class="ui large label">Año : </label> </div>
+              <div class="ten wide column">
+                <input class="field" type="text" required placeholder="Ingrese Año Película" ng-model="anho_ac">
+              </div>
+            </div>
+            <div class="ui grid">
+              <div class="twelve wide column"></div>
+              <div class="two wide column"><button type="button" ng-click="updatearPelicula(nombre_ac, autor_ac, genero_ac ,anho_ac)" class="button brown" >Actualizar Registro</button>
+            </div>
+          </div>
+        </form> 
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="ui container">
+        <form class="ui form grey inverted segment">
+          <div class="fields">
+            <input type="text" required placeholder="Ingrese Nombre" disabled class="field" ng-model="nombre_ac">
+          </div>
+          <div class="fields">
+            <input type="text" required placeholder="Ingrese Serie" class="field" ng-model="serie_ac">
+          </div>
+          <div class="fields">
+            <select class="field" required ng-model="rol_ac">
+              <option value="Principal">Principal</option>
+              <option value="Secundario">Secundario</option>
+            </select>
+          </div>
+          <input type="button" class="button green" ng-click="updatearPersonaje();" value="Actualizar">
+          <input type="button" class="button red" ng-click="deletedPersonaje();" value="Eliminar">
+        </form>
+      </div>
+    </div> -->
+  </div>
+  
+  <script src="socket.io/socket.io.js"></script>
+  <script src="../js/angular.min.js"></script>
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/semantic.min.js"></script>
+  <script src="../js/app.js"></script>
+<!--   <script src="../js/main.js"></script>
+ --></body>
+</html>
+
+
+

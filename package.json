@@ -1,0 +1,17 @@
+{
+  "name": "ejemplo_mongodb",
+  "version": "1.0.0",
+  "description": "crud-con-mongodb",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "socket.io": "^1.4.8",
+    "mongoose" : "^4.4.20"
+  }
+}
